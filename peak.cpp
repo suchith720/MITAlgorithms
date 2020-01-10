@@ -22,24 +22,34 @@ struct Location
 
     Location(int r, int c): m_row(r), m_col(c) {}
     Location() {}
+    bool operator==(const Location &location)
+    {
+        if( this->m_row == location.m_row && this->m_col == location.m_col )
+            return true;
+        
+        return false;
+    }
+        
 };
 
 //Having a destructor here will create a problem of dangling pointer.
 //Its better if its main's responsibity to delete the array from the heap
 class PeakProblem
 {
-    int **m_array, 
+    int **m_array; 
     int m_startRow, m_startCol, m_numRow, m_numCol;
 
     public :
 
     PeakProblem();
     PeakProblem(int **array, Bounds bounds);
-    int get(Location location);
-    void getBetterNeighbor(Location location);
-    void getMaximum(int startRow, int startCol, int numRow, int numCol, 
-            int &bestR, int &bestC);
-    bool isPeak(int r, int c);
+    int get(Location &location);
+    Location getBetterNeighbor(Location &location);
+    Location getMaximum(Location &location);
+    bool isPeak(Location &location);
+    PeakProblem getSubproblem(Bounds &bounds);
+    PeakProblem getSubproblemContaining(Bounds boundList[], int listLen, Location &location);
+    Location getLocationInSelf(PeakProblem &problem, Location &location);
 };
 
 PeakProblem::PeakProblem()
@@ -48,38 +58,38 @@ PeakProblem::PeakProblem()
 
 PeakProblem::PeakProblem(int **array, Bounds bounds)
 {
-    self.m_array = array;
+    this->m_array = array;
 
-    self.m_startRow = bounds.m_startRow;
-    self.m_startCol = bounds.m_startCol;
-    self.m_numRow = bounds.m_numRow;
-    self.m_numCol = bounds.m_numCol;
+    this->m_startRow = bounds.m_startRow;
+    this->m_startCol = bounds.m_startCol;
+    this->m_numRow = bounds.m_numRow;
+    this->m_numCol = bounds.m_numCol;
 }
 
-int PeakProblem::get(Location location)
+int PeakProblem::get(Location &location)
 {
     int r = location.m_row, c = location.m_col;
     
-    if( ! ( 0 <= r && r < self.m_numRow ) )
+    if( ! ( 0 <= r && r < this->m_numRow ) )
         return 0;
-    if( ! ( 0 <= c && c < self.m_numCol ) )
+    if( ! ( 0 <= c && c < this->m_numCol ) )
         return 0;
 
-    return self.m_array[self.m_startRow + r][ self.m_startCol + c];
+    return this->m_array[this->m_startRow + r][ this->m_startCol + c];
 }
 
 //add checking
-Location PeakProblem::getBetterNeighbor(Location location)
+Location PeakProblem::getBetterNeighbor(Location &location)
 {
     int r = location.m_row, c = location.m_col;
 
-    if( r-1 >=0 && self.get(r-1, c) > self.get(r, c) )
+    if( r-1 >=0 && this->get(Location(r-1, c)) > this->get(Location(r, c)) )
         r = r-1;
-    if( c-1 >=0 && self.get(r, c-1) > self.get(r, c) )
+    if( c-1 >=0 && this->get(Location(r, c-1)) > this->get(Location(r, c)) )
         c = c-1;
-    if( r+1 < self.m_numRow && self.get(r+1, c) > self.get(r, c) )
+    if( r+1 < this->m_numRow && this->get(Location(r+1, c)) > this->get(Location(r, c)) )
         r = r+1;
-    if( c+1 < self.m_numCol && self.get(r, c+1) > self.get(r, c) )
+    if( c+1 < this->m_numCol && this->get(Location(r, c+1)) > this->get(Location(r, c)) )
         c = c+1;
 
     return Location(r, c); 
@@ -88,21 +98,21 @@ Location PeakProblem::getBetterNeighbor(Location location)
 
 }
 
-Location PeakProblem::getMaximum(Location location)
+Location PeakProblem::getMaximum(Location &location)
 {
     Location bestLoc(-1, -1);
 
     int bestVal=0;
 
-    for(int r=0; r < location.r; r++)
+    for(int r=0; r < location.m_row; r++)
     {
-        for(int c=0; c < location.c; c++)
+        for(int c=0; c < location.m_col; c++)
         {
-            if( bestLoc.r == -1 || self.get(r, c) > bestVal )
+            if( bestLoc.m_row == -1 || this->get(Location(r, c)) > bestVal )
             {
-                bestLoc.r = r;
-                bestLoc.c = c;
-                bestVal = self.get(r, c);
+                bestLoc.m_row = r;
+                bestLoc.m_col = c;
+                bestVal = this->get(Location(r, c));
             }
 
         }
@@ -114,9 +124,9 @@ Location PeakProblem::getMaximum(Location location)
 
 }
 
-bool PeakProblem::isPeak(Location location)
+bool PeakProblem::isPeak(Location &location)
 {
-    Location betterLocation = self.getBetterNeighbor(location);
+    Location betterLocation = this->getBetterNeighbor(location);
 
     if( betterLocation == location)
         return true;
@@ -127,16 +137,16 @@ bool PeakProblem::isPeak(Location location)
 //Add bound checking
 PeakProblem PeakProblem::getSubproblem(Bounds &bounds)
 {
-    Bounds newBounds = {self.m_startRow + bound.m_startRow, 
-        self.m_startCol + bound.m_startCol,
+    Bounds newBounds = {this->m_startRow + bound.m_startRow, 
+        this->m_startCol + bound.m_startCol,
         bound.numRow,
         bound.numCol};
 
-    return PeakProblem(self.m_array, newBounds);
+    return PeakProblem(this->m_array, newBounds);
 }
 
 //Update with table doubling alogithm
-PeakProblem PeakProblem::getSubproblemContaining(Bounds boundList[], int listLen, Location location)
+PeakProblem PeakProblem::getSubproblemContaining(Bounds boundList[], int listLen, Location &location)
 {
     int r = location.m_row, c = location.m_col;
     
@@ -149,21 +159,23 @@ PeakProblem PeakProblem::getSubproblemContaining(Bounds boundList[], int listLen
         if( bounds.m_startRow <= r && r < bounds.m_startRow + bounds.m_numRow)
         {
             if( bounds.m_startCol <=c && c < bounds.m_startCol + bounds.m_numCol)
-                return self.getSubproblem(bounds);
+                return this->getSubproblem(bounds);
         }
         
     }
     
     // shouldn't reach here
-    return self;
+    return *this;
 
 }
 
-Location getLocationInSelf(PeakProblem problem, Location location)
+Location PeakProblem::getLocationInSelf(PeakProblem &problem, Location &location)
 {
     int r = location.m_row, c = location.m_col;
-    newRow = r + problem.m_startRow - self.m_startRow;
-    newCol = c + problem.m_startCol - self.m_startCol;
+
+    int newRow = r + problem.m_startRow - this->m_startRow;
+    int newCol = c + problem.m_startCol - this->m_startCol;
+
     return Location(newRow, newCol);
 }
     
