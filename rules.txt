@@ -1,0 +1,65 @@
+$ int (*ptr) [5]; ptr = &arr;
+- Here ptr is a pointer that points to an array of 5 elemenets, so on dereferencing we get the array.
+
+* Difference between arr and &arr.
+
+  arr and &arr points to the same location but have different type.
+  arr evaluates to int * and &arr evaluates to int (*)[] ( since the object is an array).
+  Type of the object represented by arr and arr[i] are different.
+  Assigning address to array variable is not allowed, therefore it literally not a pointer.
+  Mixing pointers and array has resulted in mixing their individual personalities.
+  Only certain operations of the pointers are passed to array.
+
+  Try to generalize this.
+
+$ char *ptr = "abc"
+Here the literal is stored in read-only memory, where as char arr[]="abc" is stored in contigious memory location - a,b,c, \0.
+
+* A temporary can not bind to a non-const reference, eg.
+  int x = 5;
+  double &a = x;
+  There is error here because x is converted into double and stored into temporary, and changing its value doesn't make sense.
+
+* const object can only invoke const functions.
+
+* const int *ptr : pointer to const int
+  int * const ptr: const pointer to int.
+
+* reference to const
+  const int &
+  int const &
+
+* int & *a
+  cannot declare pointer to int&
+
+* three ways of initializing a 2d array
+----------------------------------------------------------------
+  1.
+int array[10][10];
+void passFunc(int a[][10])
+{
+    // ...
+}
+passFunc(array);
+
+  2.
+int *array[10];
+for(int i = 0; i < 10; i++)
+    array[i] = new int[10];
+void passFunc(int *a[10]) //Array containing pointers
+{
+    // ...
+}
+passFunc(array);
+  3.
+int **array;
+array = new int *[10];
+for(int i = 0; i <10; i++)
+    array[i] = new int[10];
+void passFunc(int **a)
+{
+    // ...
+}
+passFunc(array);
+-----------------------------------------------------------------
+
