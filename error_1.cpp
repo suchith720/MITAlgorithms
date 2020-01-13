@@ -1,5 +1,7 @@
+#include <iostream>
+using namespace std;
 
-void printArray(int a, int b, const int (*(&arr))[3] )
+void printArray(int a, int b, int (* const (&arr ))[3] )
 {
   for(int i=0; i<a; i++)
   {
@@ -15,7 +17,7 @@ void printArray(int a, int b, const int (*(&arr))[3] )
 
 int main()
 {
-  const int arr[][3] = { {1, 2, 3}, {2, 3, 4} };
+  int arr[][3] = { {1, 2, 3}, {2, 3, 4} };
   printArray(2, 3, arr); 
   return 0;
 

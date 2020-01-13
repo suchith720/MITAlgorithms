@@ -63,3 +63,159 @@ void passFunc(int **a)
 passFunc(array);
 -----------------------------------------------------------------
 
+References cannot be create to temperory objects, with const &ref only.
+
+----------------------------------------------------------------
+Template comes with two keyword: template and typename, template functions cannot be virtaul.
+
+eg.
+FUNCTION:
+---------
+template <typename T>
+T sort(T a, T b){}
+
+CLASS:
+--------
+template <typename T>
+class A
+{
+  T a;
+  display();
+}
+
+template <typename T>
+class A<T>::display(){}
+
+FUNCTION IN CLASS:
+-----------------
+class A
+{
+  public:
+  template <typename T>
+  void display();
+}
+
+template <typename T>
+void A::display(){}
+
+Using template we can pass non-type parameter but should be constant and known at compile time.
+
+Template Specialization is where you specialize template for a particular datatype.
+
+eg:
+1)
+template <class T>
+void fun(T a)
+{
+   cout << "The main template fun(): "
+        << a << endl;
+}
+
+template<>
+void fun(int a)
+{
+    cout << "Specialized Template for int type: "
+         << a << endl;
+}
+
+2)
+template <class T>
+class Test
+{
+  // Data memnbers of test
+public:
+   Test()
+   {
+       // Initialization of data members
+       cout << "General template object \n";
+   }
+   // Other methods of Test
+};
+
+template <>
+class Test <int>
+{
+public:
+   Test()
+   {
+       // Initialization of data members
+       cout << "Specialized template object\n";
+   }
+};
+
+------------------------------------------------------------------
+Enueration types or enumerators are used defined datatype that can have limited number
+of values
+syntax:
+  enum enumerated-type-name{ value1, value2,......valueN };
+
+  enumerated-type-name varaible = valueX;
+
+Used to assinged names to integral constants, these values can be used in switch statement.
+
+value1=1, value2=2 and so on..
+two enum values can be assigned to same integral constant, and values can be assigned in any
+order.
+
+eg :
+
+  enum enumerated-type-name{ value1 = 11, value2=10, value3=10, value4};
+enum value without integer constant will be assigned previous value plus 1.
+
+all enum values should be unique in their scope.
+eg:
+enum state  {working, failed};
+enum result {failed, passed};
+create an error.
+
+enum enumeration-type-name can be returned from a function.
+
+you can define such enum in a class, which gives it a scope, and helps expose class's capabilities, e.g.
+eg:
+class Encryption {
+public:
+  enum { DEFAUTL_KEYLEN=16, SHORT_KEYLEN=8, LONG_KEYLEN=32 };
+  // ...
+};
+
+byte key[Encryption::DEFAUTL_KEYLEN];
+
+
+The second is an unnamed enum. I can be useful when you need the fields, but you don't intend to ever declare a variable of this enumeration type.
+
+To provide a 'very C++' example of its use, you will often seen this in template metaprogramming where the enum is used as a 'compile time return value' without the intent of ever declaring a variable of this type :
+
+template<class T>
+struct some_metafunction
+{
+    enum { res = 0; };
+};
+
+Used as compile time return value.
+----------------------------------------------------------------------------
+
+Template Metaprogramming
+-----------------------
+
+#include <iostream>
+using namespace std;
+
+template<int n> struct funStruct
+{
+    enum { val = 2*funStruct<n-1>::val };
+};
+
+template<> struct funStruct<0>
+{
+    enum { val = 1 };
+};
+
+int main()
+{
+    cout << funStruct<8>::val << endl;
+    return 0;
+}
+
+output: 256
+
+** Like other const expressions, values of enumaration constants are evaluated at compile time.

@@ -36,37 +36,36 @@ struct Location
 //Its better if its main's responsibity to delete the array from the heap
 class PeakProblem
 {
-    int **m_array; 
+    const int *const *const m_array; 
     int m_startRow, m_startCol, m_numRow, m_numCol;
 
     public :
 
     PeakProblem();
-    PeakProblem(int **array, Bounds bounds);
-    int get(Location &location);
-    Location getBetterNeighbor(Location &location);
-    Location getMaximum(Location &location);
-    bool isPeak(Location &location);
-    PeakProblem getSubproblem(Bounds &bounds);
-    PeakProblem getSubproblemContaining(Bounds boundList[], int listLen, Location &location);
-    Location getLocationInSelf(PeakProblem &problem, Location &location);
+    PeakProblem(const int *const *const array, Bounds bounds);
+    //reason for const is, temporary object cannot have non-const reference.
+    int get(const Location &location);
+    Location getBetterNeighbor(const Location &location);
+    Location getMaximum(const Location &location);
+    bool isPeak(const Location &location);
+    PeakProblem getSubproblem(const Bounds &bounds);
+    PeakProblem getSubproblemContaining(const Bounds boundList[], int listLen, const Location &location);
+    Location getLocationInSelf(const PeakProblem &problem,const Location &location);
 };
 
-PeakProblem::PeakProblem()
+PeakProblem::PeakProblem():m_array(NULL)
 {
 }
 
-PeakProblem::PeakProblem(int **array, Bounds bounds)
+PeakProblem::PeakProblem(const int *const *const array,const Bounds bounds): m_array(array)
 {
-    this->m_array = array;
-
     this->m_startRow = bounds.m_startRow;
     this->m_startCol = bounds.m_startCol;
     this->m_numRow = bounds.m_numRow;
     this->m_numCol = bounds.m_numCol;
 }
 
-int PeakProblem::get(Location &location)
+int PeakProblem::get(const Location &location)
 {
     int r = location.m_row, c = location.m_col;
     
@@ -79,7 +78,7 @@ int PeakProblem::get(Location &location)
 }
 
 //add checking
-Location PeakProblem::getBetterNeighbor(Location &location)
+Location PeakProblem::getBetterNeighbor(const Location &location)
 {
     int r = location.m_row, c = location.m_col;
 
@@ -98,7 +97,7 @@ Location PeakProblem::getBetterNeighbor(Location &location)
 
 }
 
-Location PeakProblem::getMaximum(Location &location)
+Location PeakProblem::getMaximum(const Location &location)
 {
     Location bestLoc(-1, -1);
 
@@ -124,7 +123,7 @@ Location PeakProblem::getMaximum(Location &location)
 
 }
 
-bool PeakProblem::isPeak(Location &location)
+bool PeakProblem::isPeak(const Location &location)
 {
     Location betterLocation = this->getBetterNeighbor(location);
 
@@ -135,18 +134,18 @@ bool PeakProblem::isPeak(Location &location)
 }
 
 //Add bound checking
-PeakProblem PeakProblem::getSubproblem(Bounds &bounds)
+PeakProblem PeakProblem::getSubproblem(const Bounds &bounds)
 {
-    Bounds newBounds = {this->m_startRow + bound.m_startRow, 
-        this->m_startCol + bound.m_startCol,
-        bound.numRow,
-        bound.numCol};
+    Bounds newBounds(this->m_startRow + bounds.m_startRow, 
+        this->m_startCol + bounds.m_startCol,
+        bounds.m_numRow,
+        bounds.m_numCol);
 
     return PeakProblem(this->m_array, newBounds);
 }
 
 //Update with table doubling alogithm
-PeakProblem PeakProblem::getSubproblemContaining(Bounds boundList[], int listLen, Location &location)
+PeakProblem PeakProblem::getSubproblemContaining(const Bounds boundList[], int listLen, const Location &location)
 {
     int r = location.m_row, c = location.m_col;
     
@@ -169,7 +168,7 @@ PeakProblem PeakProblem::getSubproblemContaining(Bounds boundList[], int listLen
 
 }
 
-Location PeakProblem::getLocationInSelf(PeakProblem &problem, Location &location)
+Location PeakProblem::getLocationInSelf(const PeakProblem &problem, const Location &location)
 {
     int r = location.m_row, c = location.m_col;
 
@@ -178,8 +177,9 @@ Location PeakProblem::getLocationInSelf(PeakProblem &problem, Location &location
 
     return Location(newRow, newCol);
 }
-    
 
+Location getDimensions();
+    
 
 
     
