@@ -21,7 +21,11 @@ struct Location
     int m_row,m_col;
 
     Location(int r, int c): m_row(r), m_col(c) {}
-    Location() {}
+    Location() 
+    {
+        m_row = m_col = -1;
+    }
+
     bool operator==(const Location &location)
     {
         if( this->m_row == location.m_row && this->m_col == location.m_col )
@@ -31,6 +35,26 @@ struct Location
     }
         
 };
+
+/*
+struct CrossProduct
+{
+    Bounds bounds; 
+
+    Location location;
+
+    CrossProduct(const Bounds &bounds,const Location &location): bounds(bounds), location(location)
+    {}
+
+    CrossProduct()
+    {
+        location.m_row = location.m_col = -1;
+    }
+
+};
+*/
+
+    
 
 //Having a destructor here will create a problem of dangling pointer.
 //Its better if its main's responsibity to delete the array from the heap
@@ -46,11 +70,14 @@ class PeakProblem
     //reason for const is, temporary object cannot have non-const reference.
     int get(const Location &location);
     Location getBetterNeighbor(const Location &location);
-    Location getMaximum(const Location &location);
+    Location getMaximum(const Bounds &locations);
     bool isPeak(const Location &location);
     PeakProblem getSubproblem(const Bounds &bounds);
     PeakProblem getSubproblemContaining(const Bounds boundList[], int listLen, const Location &location);
     Location getLocationInSelf(const PeakProblem &problem,const Location &location);
+
+    //Helper function
+    Bounds getBounds();
 };
 
 PeakProblem::PeakProblem():m_array(NULL)
@@ -97,25 +124,48 @@ Location PeakProblem::getBetterNeighbor(const Location &location)
 
 }
 
-Location PeakProblem::getMaximum(const Location &location)
+Location PeakProblem::getMaximum(const Location &locations)
 {
     Location bestLoc(-1, -1);
 
     int bestVal=0;
 
-    for(int r=0; r < location.m_row; r++)
+    int startRow = this->m_startRow, startCol = this->m_startCol;
+    int numRow = this->m_numRow, numCol = this->m_numCol;
+
+    int midRow = locations.m_row, midCol = locations.m_col;
+
+    int r, c;
+    
+    if( midCol > 0 )
     {
-        for(int c=0; c < location.m_col; c++)
+        c = midCol;
+        for(r=startRow; r < startRow + numRow ; r++)
         {
+             if( bestLoc.m_row == -1 || this->get(Location(r, c)) > bestVal )
+             {
+                 bestLoc.m_row = r;
+                 bestLoc.m_col = c;
+                 bestVal = this->get(Location(r, c));
+             }
+        }
+    }
+    
+    if( midRow > 0 )
+    {
+        r = midRow;
+        for(c=startCol ; c < startCol + numCol ; c++)
+        {
+
             if( bestLoc.m_row == -1 || this->get(Location(r, c)) > bestVal )
             {
                 bestLoc.m_row = r;
                 bestLoc.m_col = c;
                 bestVal = this->get(Location(r, c));
             }
-
         }
     }
+
 
     return bestLoc;
 
@@ -178,7 +228,12 @@ Location PeakProblem::getLocationInSelf(const PeakProblem &problem, const Locati
     return Location(newRow, newCol);
 }
 
-Location getDimensions();
+Bounds PeakProblem::getBounds()
+{
+    Bounds bounds(this->m_startRow, this->m_startCol, this->m_numRow, this->m_numCol);
+    return bounds;
+}
+
     
 
 
