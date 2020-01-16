@@ -126,12 +126,9 @@ Location PeakProblem::getBetterNeighbor(const Location &location)
 
 Location PeakProblem::getMaximum(const Location &locations)
 {
-    Location bestLoc(-1, -1);
+    Location bestLoc;
 
     int bestVal=0;
-
-    int startRow = this->m_startRow, startCol = this->m_startCol;
-    int numRow = this->m_numRow, numCol = this->m_numCol;
 
     int midRow = locations.m_row, midCol = locations.m_col;
 
@@ -140,7 +137,7 @@ Location PeakProblem::getMaximum(const Location &locations)
     if( midCol > 0 )
     {
         c = midCol;
-        for(r=startRow; r < startRow + numRow ; r++)
+        for(r=0; r < this->m_numRow ; r++)
         {
              if( bestLoc.m_row == -1 || this->get(Location(r, c)) > bestVal )
              {
@@ -154,7 +151,7 @@ Location PeakProblem::getMaximum(const Location &locations)
     if( midRow > 0 )
     {
         r = midRow;
-        for(c=startCol ; c < startCol + numCol ; c++)
+        for(c=0 ; c < this->m_numCol; c++)
         {
 
             if( bestLoc.m_row == -1 || this->get(Location(r, c)) > bestVal )
@@ -170,7 +167,6 @@ Location PeakProblem::getMaximum(const Location &locations)
     return bestLoc;
 
     //add trace
-
 }
 
 bool PeakProblem::isPeak(const Location &location)
@@ -186,10 +182,18 @@ bool PeakProblem::isPeak(const Location &location)
 //Add bound checking
 PeakProblem PeakProblem::getSubproblem(const Bounds &bounds)
 {
-    Bounds newBounds(this->m_startRow + bounds.m_startRow, 
-        this->m_startCol + bounds.m_startCol,
-        bounds.m_numRow,
-        bounds.m_numCol);
+    int startRow = bounds.m_startRow, startCol = bounds.m_startCol;
+    int numRow = bounds.m_numRow, numCol = bounds.m_numCol;
+
+    if( ! ( startRow >= 0 && startRow + numRow <= this->m_numRow ) )
+        return PeakProblem();
+
+    if( ! ( startCol >= 0 && startCol + numCol <= this->m_numCol ) )
+        return PeakProblem();
+
+
+    Bounds newBounds(this->m_startRow + startRow, 
+            this->m_startCol + startCol, numRow, numCol);
 
     return PeakProblem(this->m_array, newBounds);
 }
