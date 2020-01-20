@@ -52,9 +52,21 @@ using namespace std;
 //
 //} 
 
+//int main(int argc, char *argv[])
+//{
+//    //cerr << "Hello" << endl;
+//    char *ptr = argv[1];
+//    if( argc > 1)
+//        cout << ptr <<endl;
+//
+//    return 0;
+//}
+void fun(int x) { cout << "fun(int)"<< endl; }
+void fun(char *s) { cout <<"fun(char *)" << endl; }
+
 int main()
 {
-    cerr << "Hello" << endl;
-
+    int x = NULL;
+    fun(nullptr);
     return 0;
 }
