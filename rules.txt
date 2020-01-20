@@ -219,3 +219,9 @@ int main()
 output: 256
 
 ** Like other const expressions, values of enumaration constants are evaluated at compile time.
+
+----------------------------------------------------------------------------
+
+static function (not class members) are different from the global function , that they cannot be accessed from another file.
+
+---------------------------------------------------------------------------
