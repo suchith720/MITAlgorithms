@@ -48,6 +48,8 @@ TrackRecord::~TrackRecord()
         m_logFile.close();
     }
 
+    cout << "Closing track file." << endl;
+
 }
 
 void TrackRecord::getMaximum(const Bounds &bounds, const Location &location, const Location &maximum)

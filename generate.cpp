@@ -41,8 +41,8 @@ int main(int argc, char *argv[])
     int maximum = rows * cols * 2;
     if( argc > 4 )
         maximum = atoi(argv[4]);
-
-    PeakProblem generated = randomProblem(rows, cols, maximum);
+    
+    int **generated = randomProblem(rows, cols, maximum);
 
     cout << "Generated a matrix with "<< rows <<" row and "<< cols << " columns."<<endl;
 
