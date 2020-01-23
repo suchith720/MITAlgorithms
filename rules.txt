@@ -219,3 +219,16 @@ int main()
 output: 256
 
 ** Like other const expressions, values of enumaration constants are evaluated at compile time.
+
+----------------------------------------------------------------------------
+
+static function (not class members) are different from the global function , that they cannot be accessed from another file.
+
+---------------------------------------------------------------------------
+
+cin : uses space or \n as delimiters, but flushes after '\n'
+cin.get() : has no delimiter.
+cin.getline(): reads line as has delimited.
+
+if we read char *s with cin it adds '\0' at the end.
+

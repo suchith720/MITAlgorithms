@@ -1,0 +1,2 @@
+Can use make with any programming language whose compiler can be run with a shell command.
+Indeed, make is not limited to programs. You can use it to describe any task where some files must be updated automatically from others whenever the others change.
