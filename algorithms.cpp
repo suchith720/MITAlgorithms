@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Location algorithm1(const PeakProblem &problem)
+Location algorithm1(const PeakProblem &problem, const TraceRecord &trace = TraceRecord(), const Location &location = Location() )
 {
     Bounds problemBounds = problem.getBounds();
 
@@ -23,38 +23,51 @@ Location algorithm1(const PeakProblem &problem)
 
     Location divider( -1, mid);
 
-    Location bestLoc = problem.getMaximum(divider);
+    Location bestLoc = problem.getMaximum(divider, trace);
 
-    Location neighbor = problem.getBetterNeighbor(bestLoc);
+    Location neighbor = problem.getBetterNeighbor(bestLoc, trace);
 
     if( neighbor == bestLoc )
+    {
+        if( trace.getTraceRecordStatus() )
+            trace.foundPeak(bestLoc);
+
         return bestLoc;
+    }
 
     PeakProblem sub = problem.getSubproblemContaining(subproblems, 2, neighbor);
 
-    Location result = algorithm1(sub);
+    if( trace.getTraceRecordStatus() )
+        trace.setProblemDimensions(sub); 
+
+    Location result = algorithm1(sub, trace);
 
     return problem.getLocationInSelf(sub, result);
 
 }
 
-Location algorithm2(const PeakProblem &problem, const Location &location = location(0,0) )
+Location algorithm2(const PeakProblem &problem, const TraceRecord &trace = TraceRecord(), const Location &location = location(0,0) )
 {
     Bounds problemBounds = problem.getBounds();
 
     if( problemBounds.m_numRow <=0 || problemBounds.m_numCol <=0 )
         return Location();
 
-    Location nextLocation = problem.getBetterNeighbor(location);
+    Location nextLocation = problem.getBetterNeighbor(location, trace);
 
-    if( mexLocation == location)
+    if( nextLocation == location)
+    {
+        if(trace.getTraceRecordStatus() )
+            trace.foundPeak(location);
+    
         return nextLocation;
+    }
     else
-        return algorithm2(problem, nextLocation);
+        return algorithm2(problem, trace, nextLocation);
 
 }
 
-Location algorithm3(const PeakProblem &problem, const Location &bestseen = location() )
+Location algorithm3(const PeakProblem &problem, const TraceRecord &trace = TraceRecord(),  const Location &bestseen = location() )
 {
     Bounds problemBounds = problem.getBounds();
 
@@ -78,23 +91,36 @@ Location algorithm3(const PeakProblem &problem, const Location &bestseen = locat
 
     Location cross(midRow, midCol);
 
-    Location crossLoc = problem.getMaximum(cross);
-    Location neighbor = problem.getBetterNeighbor(crossLoc);
+    Location crossLoc = problem.getMaximum(cross, trace);
+    Location neighbor = problem.getBetterNeighbor(crossLoc, trace);
 
     if( bestSeen.m_row == -1 || problem.get(neighbor) > problem.get(bestSeen) )
+    {
         bestSeen = neighbor;
 
+        if(trace.getTraceRecordStatus() )
+            trace.setBestSeen(bestSeen);
+    }
+        
     if( crossLoc == neighbor)
+    {
+        if(trace.getTraceRecordStatus() )
+            trace.foundPeak(crossLoc);
+
         return crossLoc;
+    }
 
     PeakProblem sub = problem.getSubproblemContaining(subproblems, 4, bestSeen);
     Location newBest = sub.getLocationInSelf(problem, bestSeen);
 
-    Location result = algorithm3(sub, newBest);
+    if(trace.getTraceRecordStatus() )
+        trace.setProblemDimensions(sub);
+
+    Location result = algorithm3(sub, trace, newBest);
     return problem.getLocationInSelf(sub, result);
 }
 
-Location algorithm4(const PeakProblem &problem, const Location &bestSeen = location(), bool rowSplit = true)
+Location algorithm4(const PeakProblem &problem, const TraceRecord &trace = TraceRecord(), const Location &bestSeen = location(), bool rowSplit = true)
 {
     Bounds problemBounds = problem.getBounds();
 
@@ -132,21 +158,34 @@ Location algorithm4(const PeakProblem &problem, const Location &bestSeen = locat
         divider = Location( -1 , mid );
     }
 
-    Location bestLoc = problem.getMaximum(divider);
+    Location bestLoc = problem.getMaximum(divider, trace);
 
-    Location neighbor = problem.getBetterNeighbor(bestLoc);
+    Location neighbor = problem.getBetterNeighbor(bestLoc, trace);
 
     if( bestSeen.m_row == -1 || problem.get(neighbor) > problem.get(bestSeen) )
+    {
         bestSeen = neighbor;
 
+        if(trace.getTraceRecordStatus() )
+            trace.setBestSeen(bestSeen);
+    }
+
     if( neighbor == besLoc || problem.get(bestLoc) >= problem.get(bestSeen) )
+    {
+        if(trace.getTraceRecordStatus() )
+            trace.foundPeak(bestLoc);
+
         return bestLoc;
+    }
 
     PeakProblem sub = problem.getSubproblemContaining(subproblems, 2, bestSeen);
 
     Location newBest = problem.getLocationInSelf(sub, bestSeen);
 
-    Location result = algorithm4( sub, newBest, !rowSplit);
+    if( trace.getTraceRecordStatus() )
+        trace.setProblemDimensions(sub);
+
+    Location result = algorithm4( sub, trace, newBest, !rowSplit);
 
     return problem.getLocationInSelf(sub, result);
 

@@ -11,7 +11,7 @@ class RandomProblem
 {
     int** m_array;
 
-    int m_rows, m_columns, m_max;
+    int m_rows, m_cols, m_max;
 
     public:
     
@@ -21,8 +21,9 @@ class RandomProblem
     int writeToFile(const char* filename);
     ~RandomProblem();
 
-    int writeToFile(const char* filename);
-
+    int** arrayPtr();
+    int getRows();
+    int getColumns();
 };
 
 RandomProblem::RandomProblem(int rows, int cols, int max)
@@ -30,6 +31,21 @@ RandomProblem::RandomProblem(int rows, int cols, int max)
     m_array = NULL;
     m_rows = m_cols = 0;
     m_max = 1000;
+}
+
+int** RandomProblem::arrayPtr()
+{
+    return m_array;
+}
+
+int getRows()
+{
+    return m_rows;
+}
+
+int getCols()
+{
+    return m_cols;
 }
 
 void RandomProblem::generate(int rows, int cols, int max)

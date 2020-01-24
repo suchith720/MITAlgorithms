@@ -61,22 +61,34 @@ struct CrossProduct
 
 class PeakProblem
 {
-    const int *const *const m_array; 
+    const int *const *m_array; 
     int m_startRow, m_startCol, m_numRow, m_numCol;
 
     public :
 
     PeakProblem();
-    PeakProblem(const int *const *const array, Bounds bounds);
+
+    PeakProblem(const int *const * array, Bounds bounds);
+
+    void loadPeakProblem(const int *const * array, Bounds bounds);
+
     //reason for const is, temporary object cannot have non-const reference.
     int get(const Location &location);
-    Location getBetterNeighbor(const Location &location);
-    Location getMaximum(const Bounds &locations);
+
+    Location getBetterNeighbor(const Location &location, const TraceRecord &trace);
+
+    Location getMaximum(const Bounds &locations, const TraceRecord &trace);
+
     bool isPeak(const Location &location);
+
     PeakProblem getSubproblem(const Bounds &bounds);
+
     PeakProblem getSubproblemContaining(const Bounds boundList[], int listLen, const Location &location);
+
     Location getLocationInSelf(const PeakProblem &problem,const Location &location);
 
     //Helper function
     Bounds getBounds();
 };
+
+

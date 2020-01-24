@@ -1,5 +1,7 @@
 #include <iostream>
 
+#include "trace.h"
+
 PeakProblem::PeakProblem():m_array(NULL)
 {
 }
@@ -11,6 +13,17 @@ PeakProblem::PeakProblem(const int *const *const array,const Bounds bounds): m_a
     this->m_numRow = bounds.m_numRow;
     this->m_numCol = bounds.m_numCol;
 }
+
+void PeakProblem::loadPeakProblem(const int *const * array, Bounds bounds)
+{
+    this->m_array = array;
+
+    this->m_startRow = bounds.m_startRow;
+    this->m_startCol = bounds.m_startCol;
+    this->m_numRow = bounds.m_numRow;
+    this->m_numCol = bounds.m_numCol;
+}
+
 
 int PeakProblem::get(const Location &location)
 {
@@ -24,8 +37,7 @@ int PeakProblem::get(const Location &location)
     return this->m_array[this->m_startRow + r][ this->m_startCol + c];
 }
 
-//add checking
-Location PeakProblem::getBetterNeighbor(const Location &location)
+Location PeakProblem::getBetterNeighbor(const Location &location, const TraceRecord &trace = TraceRecord() )
 {
     int r = location.m_row, c = location.m_col;
 
@@ -38,13 +50,16 @@ Location PeakProblem::getBetterNeighbor(const Location &location)
     if( c+1 < this->m_numCol && this->get(Location(r, c+1)) > this->get(Location(r, c)) )
         c = c+1;
 
-    return Location(r, c); 
+    Location best(r, c);
 
-    //add trace
+    if( trace.getTraceRecordStatus() )
+        trace.getBetterNeighbor(location, best);
+
+    return best; 
 
 }
 
-Location PeakProblem::getMaximum(const Location &locations)
+Location PeakProblem::getMaximum(const Location &locations, const TraceRecord &trace = TraceRecord() )
 {
     Location bestLoc;
 
@@ -83,10 +98,11 @@ Location PeakProblem::getMaximum(const Location &locations)
         }
     }
 
+    if( trace.getTraceRecordStatus() )
+        trace.getMaximum(getBounds() ,locations, bestLoc);
 
     return bestLoc;
 
-    //add trace
 }
 
 bool PeakProblem::isPeak(const Location &location)
@@ -118,7 +134,8 @@ PeakProblem PeakProblem::getSubproblem(const Bounds &bounds)
     return PeakProblem(this->m_array, newBounds);
 }
 
-//Update with table doubling alogithm
+//Update with table doubling alogithm the boundList[] parameter.
+
 PeakProblem PeakProblem::getSubproblemContaining(const Bounds boundList[], int listLen, const Location &location)
 {
     int r = location.m_row, c = location.m_col;

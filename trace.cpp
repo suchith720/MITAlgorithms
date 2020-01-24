@@ -1,48 +1,26 @@
-#include <iostream>
-#include <fstream>
-
-using namespace std;
-
-class TraceRecord
-{
-    ofstream m_logFile;
-    bool m_isTrackRecordOpen;
-
-    public:
-
-        TraceRecord();
-        TraceRecord(const char &filename[], int fileMode);
-        void getMaximum(const Location &location, const Location &maximum);
-        void getBetterNeighbor(const Location &neighbor, const Location &better);
-        void setProblemDimensions(PeakProblem &subprolem);
-        void setBestSeen(const Location &bestSeen);
-        void foundPeak(const Location &peak);
-        ~TraceRecord();
-
-        //Helper function
-        bool getTrackRecordStatus();
-
-};
+#include "trace.h"
 
 TraceRecord::TraceRecord()
 {
+    m_isTraceRecordOpen = false;
 }
+
 
 TraceRecord::TraceRecord(const char &filename[], int fileMode = ios::trunc)
 {
     this->m_logFile.open(filename, fileMode);
-    m_isTrackRecordOpen = true; 
+    m_isTraceRecordOpen = true; 
 
     if(! m_logFile.is_open() )
     {
         cout << "Unable to open track file." << endl;
-        m_isTrackRecordOpen = false;
+        m_isTraceRecordOpen = false;
     }
 }
 
-TrackRecord::~TrackRecord()
+TraceRecord::~TraceRecord()
 {
-    if(  m_isTrackRecordOpen )
+    if(  m_isTraceRecordOpen )
     {
         m_logFile.flush();
         m_logFile.close();
@@ -52,9 +30,38 @@ TrackRecord::~TrackRecord()
 
 }
 
-void TrackRecord::getMaximum(const Bounds &bounds, const Location &location, const Location &maximum)
+int TraceRecord::openTracer(const char &filename[], int fileMode)
 {
-    if( ! m_isTrackRecordOpen )
+    if( m_isTraceRecordOpen )
+        return 0;
+    
+    this->m_logFile.open(filename, fileMode);
+    m_isTraceRecordOpen = true; 
+
+    if(! m_logFile.is_open() )
+    {
+        cerr << "Unable to open track file." << endl;
+        m_isTraceRecordOpen = false;
+        return 0;
+    }
+
+    return 1;
+}
+
+int TraceRecord::closeTracer()
+{
+    if( ! m_isTraceRecordOpen )
+        return 0;
+
+    m_logFile.close();
+    return 1;
+}
+
+
+
+void TraceRecord::getMaximum(const Bounds &bounds, const Location &location, const Location &maximum)
+{
+    if( ! m_isTraceRecordOpen )
         return;
 
     m_logFile <<"type"<<" "<<"findingMaximum"<< endl;
@@ -68,9 +75,9 @@ void TrackRecord::getMaximum(const Bounds &bounds, const Location &location, con
 }
 
 
-void TrackRecord::getBetterNeighbor(const Location &neighbor, const Location &better)
+void TraceRecord::getBetterNeighbor(const Location &neighbor, const Location &better)
 {
-    if( ! m_isTrackRecordOpen )
+    if( ! m_isTraceRecordOpen )
         return;
 
     m_logFile <<"type"<<" "<<"findingNeighbor"<< endl;
@@ -82,22 +89,24 @@ void TrackRecord::getBetterNeighbor(const Location &neighbor, const Location &be
 
 }
 
-void TrackRecord::setProblemDimensions(PeakProblem &subprolem)
+void TraceRecord::setProblemDimensions(PeakProblem &subproblem)
 {
-    if( ! m_isTrackRecordOpen )
+    if( ! m_isTraceRecordOpen )
         return;
 
+    Bounds subproblemBounds = subproblem.getBounds();
+
     m_logFile <<"type"<<" "<<"subproblem"<< endl;
-    m_logFile <<"startRow"<<" "<<subproblem.m_startRow<<endl;
-    m_logFile <<"numRows"<<" "<<subproblem.m_numRow<<endl;
-    m_logFile <<"startCol"<<" "<<subproblem.m_startCol<<endl;
-    m_logFile <<"numCols"<<" "<<subproblem.m_numCol<<endl;
+    m_logFile <<"startRow"<<" "<<subproblemBounds.m_startRow<<endl;
+    m_logFile <<"numRows"<<" "<<subproblemBounds.m_numRow<<endl;
+    m_logFile <<"startCol"<<" "<<subproblemBounds.m_startCol<<endl;
+    m_logFile <<"numCols"<<" "<<subproblemBounds.m_numCol<<endl;
 
 }
 
-void TrackRecord::setBestSeen(const Location &bestSeen)
+void TraceRecord::setBestSeen(const Location &bestSeen)
 {
-    if( ! m_isTrackRecordOpen )
+    if( ! m_isTraceRecordOpen )
         return;
 
     m_logFile <<"type"<<" "<<"bestSeen"<< endl;
@@ -106,9 +115,9 @@ void TrackRecord::setBestSeen(const Location &bestSeen)
 
 }
 
-void TrackRecord::foundPeak(const Location &peak)
+void TraceRecord::foundPeak(const Location &peak)
 {
-    if( ! m_isTrackRecordOpen )
+    if( ! m_isTraceRecordOpen )
         return;
 
     m_logFile <<"type"<<" "<<"foundPeak"<< endl;
@@ -117,9 +126,9 @@ void TrackRecord::foundPeak(const Location &peak)
 }
 
 //Helper function
-bool TrackRecord::getTrackRecordStatus()
+bool TraceRecord::getTraceRecordStatus()
 {
-    return m_isTrackRecordOpen;
+    return m_isTraceRecordOpen;
 }
 
 

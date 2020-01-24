@@ -190,29 +190,56 @@ using namespace std;
 //}
 
 
-#include "myString.h"
+//#include "myString.h"
+//
+//int main()
+//{
+//    //MyString filename;
+//
+//    //filename.input();
+//
+//    //MyString updatedFile;
+//
+//    //updatedFile = filename;
+//
+//    //filename.display();
+//    //updatedFile.display();
+//    
+//    MyString filename("Suchith Prabhu");
+//
+//    cout << " display(): ";
+//    filename.display();
+//
+//    filename.input();
+//    cout << " input(): ";
+//    filename.display();
+//
+//    return 0;
+//}
+
+
+/* Function pointers 
+ */
+typedef int (*func_ptr)(const int&, const int& );
+
+int  sum(const int &a, const int &b)
+{
+    return a+b;
+}
+
+int sub(const int &a, const int &b)
+{ 
+    return a-b;
+}
 
 int main()
 {
-    //MyString filename;
+    func_ptr algo[] = { sum, sub };
 
-    //filename.input();
-
-    //MyString updatedFile;
-
-    //updatedFile = filename;
-
-    //filename.display();
-    //updatedFile.display();
-    
-    MyString filename("Suchith Prabhu");
-
-    cout << " display(): ";
-    filename.display();
-
-    filename.input();
-    cout << " input(): ";
-    filename.display();
+    cout << algo[0](3, 2) << endl;
+    cout << algo[1](3, 2) << endl;
 
     return 0;
 }
+
+
