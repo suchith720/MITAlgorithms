@@ -1,30 +1,5 @@
-#include <iostream>
-#include <cstdlib>
-#include <fstream>
+#include "randomProblem.h"
 
-#include "utils.h"
-#include "myString.h"
-
-using namespace std;
-
-class RandomProblem
-{
-    int** m_array;
-
-    int m_rows, m_cols, m_max;
-
-    public:
-    
-    RandomProblem();
-    void generate(int rows=10, int cols=10, int max=1000);
-    int readFromFile(const char* filename);
-    int writeToFile(const char* filename);
-    ~RandomProblem();
-
-    int** arrayPtr();
-    int getRows();
-    int getColumns();
-};
 
 RandomProblem::RandomProblem(int rows, int cols, int max)
 {
@@ -70,6 +45,7 @@ void RandomProblem::generate(int rows, int cols, int max)
     }
 
 }
+
 int RandomProblem::readFromFile(const char* filename)
 {
     if( m_array != NULL)
@@ -126,8 +102,6 @@ int RandomProblem::writeToFile(const char* filename)
 }
 
 
-}
-
 RandomProblem::~RandomProblem()
 {
     for(int i=0; i< m_rows; i++)
@@ -138,40 +112,4 @@ RandomProblem::~RandomProblem()
     delete [] m_array;
 }
 
-   
 
-int main(int argc, char *argv[])
-{
-    MyString filename; 
-
-    if( argc > 1 )
-        filename = MyString(argv[1]);
-
-    int rows=10, cols=10;
-    if( argc > 3 )
-    {
-        rows = atoi(argv[2]);
-        cols = atoi(argv[3]);
-    }
-
-    int maximum = rows * cols * 2;
-    if( argc > 4 )
-        maximum = atoi(argv[4]);
-    
-    RandomProblem generated(rows, cols, maximum);
-
-    cout << "Generated a matrix with "<< rows <<" row and "<< cols << " columns."<<endl;
-
-    if( ! filename.length() )
-    {
-        filename = MyString("problem.txt");
-        getSaveFilename(filename);
-        
-        if( !filename.length() ) 
-            return 0;
-    }
-
-    generated.writeToFile(filename.arrayPtr());
-
-    return 0;
-}

@@ -1,17 +1,18 @@
 #include <iostream>
 
-//to be structured properly
-
 #include "peak.h"
 #include "algorithms.h"
 #include "utils.h"
 #include "track.h"
+#include "randomProblem.h"
+#include "myString.h"
+
 
 #define NUM_ALGORITHMS 4
 
 using namespace std;
 
-typedef Location (*algorithmList) (const PeakProblem&, const TraceRecord&, const Location&);
+typedef Location (*algorithmList) (const PeakProblem&, const TraceRecord&, const Location&, bool);
 
 void loadProblem(RandomProblem &load, const char *file = "problem.txt")
 {
@@ -55,8 +56,7 @@ int main()
         
     }
 
-
-
+    return 0;
 }
 
 

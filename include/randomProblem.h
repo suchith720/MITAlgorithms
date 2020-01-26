@@ -1,0 +1,27 @@
+#include <iostream>
+#include <fstream>
+#include <cstdlib>
+
+using namespace std;
+
+
+class RandomProblem
+{
+    int** m_array;
+
+    int m_rows, m_cols, m_max;
+
+    public:
+    
+    RandomProblem();
+    void generate(int rows=10, int cols=10, int max=1000);
+    int readFromFile(const char* filename);
+    int writeToFile(const char* filename);
+    ~RandomProblem();
+
+    int** arrayPtr();
+    int getRows();
+    int getColumns();
+};
+
+

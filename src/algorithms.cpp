@@ -1,9 +1,6 @@
-#include <iostream>
-#include "peak.h"
+#include "algorithms.h"
 
-using namespace std;
-
-Location algorithm1(const PeakProblem &problem, const TraceRecord &trace = TraceRecord(), const Location &location = Location() )
+Location algorithm1(const PeakProblem &problem, const TraceRecord &trace, const Location &location, bool rowSplit)
 {
     Bounds problemBounds = problem.getBounds();
 
@@ -46,7 +43,7 @@ Location algorithm1(const PeakProblem &problem, const TraceRecord &trace = Trace
 
 }
 
-Location algorithm2(const PeakProblem &problem, const TraceRecord &trace = TraceRecord(), const Location &location = location(0,0) )
+Location algorithm2(const PeakProblem &problem, const TraceRecord &trace, const Location &location, bool rowSplit)
 {
     Bounds problemBounds = problem.getBounds();
 
@@ -67,7 +64,7 @@ Location algorithm2(const PeakProblem &problem, const TraceRecord &trace = Trace
 
 }
 
-Location algorithm3(const PeakProblem &problem, const TraceRecord &trace = TraceRecord(),  const Location &bestseen = location() )
+Location algorithm3(const PeakProblem &problem, const TraceRecord &trace,  const Location &bestseen, bool rowSplit)
 {
     Bounds problemBounds = problem.getBounds();
 
@@ -120,7 +117,7 @@ Location algorithm3(const PeakProblem &problem, const TraceRecord &trace = Trace
     return problem.getLocationInSelf(sub, result);
 }
 
-Location algorithm4(const PeakProblem &problem, const TraceRecord &trace = TraceRecord(), const Location &bestSeen = location(), bool rowSplit = true)
+Location algorithm4(const PeakProblem &problem, const TraceRecord &trace, const Location &bestSeen, bool rowSplit)
 {
     Bounds problemBounds = problem.getBounds();
 

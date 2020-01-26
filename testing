@@ -1,0 +1,3 @@
+$(BINDIR)/main : test/main.cpp $(OBJDIR)/peak.o  $(OBJDIR)/algorithms.o  $(OBJDIR)/peak.o  \
+ $(OBJDIR)/trace.o  $(OBJDIR)/utils.o  $(OBJDIR)/myString.o  $(OBJDIR)/trace.o  \
+ $(OBJDIR)/randomProblem.o 

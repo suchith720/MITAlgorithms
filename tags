@@ -3,83 +3,94 @@
 !_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
-!_TAG_PROGRAM_VERSION	5.8	//
-Bounds	peak.h	/^    Bounds() {}$/;"	f	struct:Bounds
-Bounds	peak.h	/^    Bounds(int startRow, int startCol, int numRow, int numCol): m_startRow(startRow), m_startCol(startCol), m_numRow(numRow), m_numCol(numCol)$/;"	f	struct:Bounds
-Bounds	peak.h	/^struct Bounds$/;"	s
-Location	peak.h	/^    Location() $/;"	f	struct:Location
-Location	peak.h	/^    Location(int r, int c): m_row(r), m_col(c) {}$/;"	f	struct:Location
-Location	peak.h	/^struct Location$/;"	s
-MyString	myString.cpp	/^MyString::MyString()$/;"	f	class:MyString
-MyString	myString.cpp	/^MyString::MyString(const MyString &str)$/;"	f	class:MyString
-MyString	myString.cpp	/^MyString::MyString(const char* str)$/;"	f	class:MyString
-MyString	myString.h	/^class MyString$/;"	c
-PeakProblem	peak.cpp	/^PeakProblem::PeakProblem():m_array(NULL)$/;"	f	class:PeakProblem
-PeakProblem	peak.cpp	/^PeakProblem::PeakProblem(const int *const *const array,const Bounds bounds): m_array(array)$/;"	f	class:PeakProblem
-PeakProblem	peak.h	/^class PeakProblem$/;"	c
-RandomProblem	generate.cpp	/^RandomProblem::RandomProblem(int rows, int cols, int max)$/;"	f	class:RandomProblem
-RandomProblem	generate.cpp	/^class RandomProblem$/;"	c	file:
-TraceRecord	trace.cpp	/^TraceRecord::TraceRecord()$/;"	f	class:TraceRecord
-TraceRecord	trace.cpp	/^TraceRecord::TraceRecord(const char &filename[], int fileMode = ios::trunc)$/;"	f	class:TraceRecord
-TraceRecord	trace.h	/^class TraceRecord$/;"	c
-algorithm1	algorithms.cpp	/^Location algorithm1(const PeakProblem &problem, const TraceRecord &trace, const Location &location = Location() )$/;"	f
-algorithm2	algorithms.cpp	/^Location algorithm2(const PeakProblem &problem, const TraceRecord &trace, const Location &location = location(0,0) )$/;"	f
-algorithm3	algorithms.cpp	/^Location algorithm3(const PeakProblem &problem, const TraceRecord &trace,  const Location &bestseen = location() )$/;"	f
-algorithm4	algorithms.cpp	/^Location algorithm4(const PeakProblem &problem, const TraceRecord &trace, const Location &bestSeen = location(), bool rowSplit = true)$/;"	f
-arrayPtr	myString.cpp	/^char* MyString::arrayPtr()$/;"	f	class:MyString
-clear	myString.cpp	/^void MyString::clear()$/;"	f	class:MyString
-display	myString.cpp	/^void MyString::display()$/;"	f	class:MyString
-foundPeak	trace.cpp	/^void TraceRecord::foundPeak(const Location &peak)$/;"	f	class:TraceRecord
-generate	generate.cpp	/^void RandomProblem::generate(int rows, int cols, int max)$/;"	f	class:RandomProblem
-get	peak.cpp	/^int PeakProblem::get(const Location &location)$/;"	f	class:PeakProblem
-getBetterNeighbor	peak.cpp	/^Location PeakProblem::getBetterNeighbor(const Location &location)$/;"	f	class:PeakProblem
-getBetterNeighbor	trace.cpp	/^void TraceRecord::getBetterNeighbor(const Location &neighbor, const Location &better)$/;"	f	class:TraceRecord
-getBounds	peak.cpp	/^Bounds PeakProblem::getBounds()$/;"	f	class:PeakProblem
-getLocationInSelf	peak.cpp	/^Location PeakProblem::getLocationInSelf(const PeakProblem &problem, const Location &location)$/;"	f	class:PeakProblem
-getMaximum	peak.cpp	/^Location PeakProblem::getMaximum(const Location &locations)$/;"	f	class:PeakProblem
-getMaximum	trace.cpp	/^void TraceRecord::getMaximum(const Bounds &bounds, const Location &location, const Location &maximum)$/;"	f	class:TraceRecord
-getOpenFilename	utils.cpp	/^    void getOpenFilename(MyString &filename)$/;"	f	namespace:utils
-getSaveFilename	utils.cpp	/^    void getSaveFilename(MyString &filename)$/;"	f	namespace:utils
-getSubproblem	peak.cpp	/^PeakProblem PeakProblem::getSubproblem(const Bounds &bounds)$/;"	f	class:PeakProblem
-getSubproblemContaining	peak.cpp	/^PeakProblem PeakProblem::getSubproblemContaining(const Bounds boundList[], int listLen, const Location &location)$/;"	f	class:PeakProblem
-getTraceRecordStatus	trace.cpp	/^bool TraceRecord::getTraceRecordStatus()$/;"	f	class:TraceRecord
-initialize	myString.cpp	/^void MyString::initialize()$/;"	f	class:MyString
-input	myString.cpp	/^void MyString::input()$/;"	f	class:MyString
-isPeak	peak.cpp	/^bool PeakProblem::isPeak(const Location &location)$/;"	f	class:PeakProblem
-length	myString.cpp	/^int MyString::length()$/;"	f	class:MyString
-loadProblem	main.cpp	/^void loadProblem(RandomProblem &problem, const char *file = "problem.txt")$/;"	f
-m_array	generate.cpp	/^    int** m_array;$/;"	m	class:RandomProblem	file:
-m_array	peak.h	/^    const int *const *const m_array; $/;"	m	class:PeakProblem
-m_col	peak.h	/^    int m_row,m_col;$/;"	m	struct:Location
-m_columns	generate.cpp	/^    int m_rows, m_columns, m_max;$/;"	m	class:RandomProblem	file:
-m_isTraceRecordOpen	trace.h	/^    bool m_isTraceRecordOpen;$/;"	m	class:TraceRecord
-m_length	myString.h	/^    int m_length;$/;"	m	class:MyString
-m_logFile	trace.h	/^    ofstream m_logFile;$/;"	m	class:TraceRecord
-m_max	generate.cpp	/^    int m_rows, m_columns, m_max;$/;"	m	class:RandomProblem	file:
-m_numCol	peak.h	/^    int m_startRow, m_startCol, m_numRow, m_numCol;$/;"	m	class:PeakProblem
-m_numCol	peak.h	/^    int m_startRow, m_startCol, m_numRow, m_numCol;$/;"	m	struct:Bounds
-m_numRow	peak.h	/^    int m_startRow, m_startCol, m_numRow, m_numCol;$/;"	m	class:PeakProblem
-m_numRow	peak.h	/^    int m_startRow, m_startCol, m_numRow, m_numCol;$/;"	m	struct:Bounds
-m_row	peak.h	/^    int m_row,m_col;$/;"	m	struct:Location
-m_rows	generate.cpp	/^    int m_rows, m_columns, m_max;$/;"	m	class:RandomProblem	file:
-m_startCol	peak.h	/^    int m_startRow, m_startCol, m_numRow, m_numCol;$/;"	m	class:PeakProblem
-m_startCol	peak.h	/^    int m_startRow, m_startCol, m_numRow, m_numCol;$/;"	m	struct:Bounds
-m_startRow	peak.h	/^    int m_startRow, m_startCol, m_numRow, m_numCol;$/;"	m	class:PeakProblem
-m_startRow	peak.h	/^    int m_startRow, m_startCol, m_numRow, m_numCol;$/;"	m	struct:Bounds
-m_string	myString.h	/^    char* m_string;$/;"	m	class:MyString
-main	error_1.cpp	/^int main()$/;"	f
-main	main.cpp	/^int main()$/;"	f
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+Bounds	include/peak.h	/^    Bounds() {}$/;"	f	struct:Bounds
+Bounds	include/peak.h	/^    Bounds(int startRow, int startCol, int numRow, int numCol): m_startRow(startRow), m_startCol(startCol), m_numRow(numRow), m_numCol(numCol)$/;"	f	struct:Bounds
+Bounds	include/peak.h	/^struct Bounds$/;"	s
+CC	Makefile	/^CC = g++ -g -std=c++11$/;"	m
+Location	include/peak.h	/^    Location() $/;"	f	struct:Location
+Location	include/peak.h	/^    Location(int r, int c): m_row(r), m_col(c) {}$/;"	f	struct:Location
+Location	include/peak.h	/^struct Location$/;"	s
+MyString	include/myString.h	/^class MyString$/;"	c
+MyString	src/myString.cpp	/^MyString::MyString()$/;"	f	class:MyString
+MyString	src/myString.cpp	/^MyString::MyString(const MyString &str)$/;"	f	class:MyString
+MyString	src/myString.cpp	/^MyString::MyString(const char* str)$/;"	f	class:MyString
+NUM_ALGORITHMS	test/main.cpp	8;"	d	file:
+PeakProblem	include/peak.h	/^class PeakProblem$/;"	c
+PeakProblem	src/peak.cpp	/^PeakProblem::PeakProblem():m_array(NULL)$/;"	f	class:PeakProblem
+PeakProblem	src/peak.cpp	/^PeakProblem::PeakProblem(const int *const *const array,const Bounds bounds): m_array(array)$/;"	f	class:PeakProblem
+RandomProblem	include/randomProblem.h	/^class RandomProblem$/;"	c
+RandomProblem	src/randomProblem.cpp	/^RandomProblem::RandomProblem(int rows, int cols, int max)$/;"	f	class:RandomProblem
+TraceRecord	include/trace.h	/^class TraceRecord$/;"	c
+TraceRecord	src/trace.cpp	/^TraceRecord::TraceRecord()$/;"	f	class:TraceRecord
+TraceRecord	src/trace.cpp	/^TraceRecord::TraceRecord(const char &filename[], int fileMode = ios::trunc)$/;"	f	class:TraceRecord
+algorithm1	src/algorithms.cpp	/^Location algorithm1(const PeakProblem &problem, const TraceRecord &trace = TraceRecord(), const Location &location = Location() )$/;"	f
+algorithm2	src/algorithms.cpp	/^Location algorithm2(const PeakProblem &problem, const TraceRecord &trace = TraceRecord(), const Location &location = location(0,0) )$/;"	f
+algorithm3	src/algorithms.cpp	/^Location algorithm3(const PeakProblem &problem, const TraceRecord &trace = TraceRecord(),  const Location &bestseen = location() )$/;"	f
+algorithm4	src/algorithms.cpp	/^Location algorithm4(const PeakProblem &problem, const TraceRecord &trace = TraceRecord(), const Location &bestSeen = location(), bool rowSplit = true)$/;"	f
+algorithmList	test/main.cpp	/^typedef Location (*algorithmList) (const PeakProblem&, const TraceRecord&, const Location&);$/;"	t	file:
+arrayPtr	src/myString.cpp	/^char* MyString::arrayPtr()$/;"	f	class:MyString
+arrayPtr	src/randomProblem.cpp	/^int** RandomProblem::arrayPtr()$/;"	f	class:RandomProblem
+clear	src/myString.cpp	/^void MyString::clear()$/;"	f	class:MyString
+closeTracer	src/trace.cpp	/^int TraceRecord::closeTracer()$/;"	f	class:TraceRecord
+display	src/myString.cpp	/^void MyString::display()$/;"	f	class:MyString
+foundPeak	src/trace.cpp	/^void TraceRecord::foundPeak(const Location &peak)$/;"	f	class:TraceRecord
+func_ptr	test.cpp	/^typedef int (*func_ptr)(const int&, const int& );$/;"	t	file:
+generate	src/randomProblem.cpp	/^void RandomProblem::generate(int rows, int cols, int max)$/;"	f	class:RandomProblem
+get	src/peak.cpp	/^int PeakProblem::get(const Location &location)$/;"	f	class:PeakProblem
+getBetterNeighbor	src/peak.cpp	/^Location PeakProblem::getBetterNeighbor(const Location &location, const TraceRecord &trace = TraceRecord() )$/;"	f	class:PeakProblem
+getBetterNeighbor	src/trace.cpp	/^void TraceRecord::getBetterNeighbor(const Location &neighbor, const Location &better)$/;"	f	class:TraceRecord
+getBounds	src/peak.cpp	/^Bounds PeakProblem::getBounds()$/;"	f	class:PeakProblem
+getCols	src/randomProblem.cpp	/^int getCols()$/;"	f
+getLocationInSelf	src/peak.cpp	/^Location PeakProblem::getLocationInSelf(const PeakProblem &problem, const Location &location)$/;"	f	class:PeakProblem
+getMaximum	src/peak.cpp	/^Location PeakProblem::getMaximum(const Location &locations, const TraceRecord &trace = TraceRecord() )$/;"	f	class:PeakProblem
+getMaximum	src/trace.cpp	/^void TraceRecord::getMaximum(const Bounds &bounds, const Location &location, const Location &maximum)$/;"	f	class:TraceRecord
+getOpenFilename	src/utils.cpp	/^void utils::getOpenFilename(MyString &filename)$/;"	f	class:utils
+getRows	src/randomProblem.cpp	/^int getRows()$/;"	f
+getSaveFilename	src/utils.cpp	/^void utils::getSaveFilename(MyString &filename)$/;"	f	class:utils
+getSubproblem	src/peak.cpp	/^PeakProblem PeakProblem::getSubproblem(const Bounds &bounds)$/;"	f	class:PeakProblem
+getSubproblemContaining	src/peak.cpp	/^PeakProblem PeakProblem::getSubproblemContaining(const Bounds boundList[], int listLen, const Location &location)$/;"	f	class:PeakProblem
+getTraceRecordStatus	src/trace.cpp	/^bool TraceRecord::getTraceRecordStatus()$/;"	f	class:TraceRecord
+initialize	src/myString.cpp	/^void MyString::initialize()$/;"	f	class:MyString
+input	src/myString.cpp	/^void MyString::input()$/;"	f	class:MyString
+isPeak	src/peak.cpp	/^bool PeakProblem::isPeak(const Location &location)$/;"	f	class:PeakProblem
+length	src/myString.cpp	/^int MyString::length()$/;"	f	class:MyString
+loadPeakProblem	src/peak.cpp	/^void PeakProblem::loadPeakProblem(const int *const * array, Bounds bounds)$/;"	f	class:PeakProblem
+loadProblem	test/main.cpp	/^void loadProblem(RandomProblem &load, const char *file = "problem.txt")$/;"	f
+m_array	include/peak.h	/^    const int *const *m_array; $/;"	m	class:PeakProblem
+m_array	include/randomProblem.h	/^    int** m_array;$/;"	m	class:RandomProblem
+m_col	include/peak.h	/^    int m_row,m_col;$/;"	m	struct:Location
+m_cols	include/randomProblem.h	/^    int m_rows, m_cols, m_max;$/;"	m	class:RandomProblem
+m_isTraceRecordOpen	include/trace.h	/^    bool m_isTraceRecordOpen;$/;"	m	class:TraceRecord
+m_length	include/myString.h	/^    int m_length;$/;"	m	class:MyString
+m_logFile	include/trace.h	/^    ofstream m_logFile;$/;"	m	class:TraceRecord
+m_max	include/randomProblem.h	/^    int m_rows, m_cols, m_max;$/;"	m	class:RandomProblem
+m_numCol	include/peak.h	/^    int m_startRow, m_startCol, m_numRow, m_numCol;$/;"	m	class:PeakProblem
+m_numCol	include/peak.h	/^    int m_startRow, m_startCol, m_numRow, m_numCol;$/;"	m	struct:Bounds
+m_numRow	include/peak.h	/^    int m_startRow, m_startCol, m_numRow, m_numCol;$/;"	m	class:PeakProblem
+m_numRow	include/peak.h	/^    int m_startRow, m_startCol, m_numRow, m_numCol;$/;"	m	struct:Bounds
+m_row	include/peak.h	/^    int m_row,m_col;$/;"	m	struct:Location
+m_rows	include/randomProblem.h	/^    int m_rows, m_cols, m_max;$/;"	m	class:RandomProblem
+m_startCol	include/peak.h	/^    int m_startRow, m_startCol, m_numRow, m_numCol;$/;"	m	class:PeakProblem
+m_startCol	include/peak.h	/^    int m_startRow, m_startCol, m_numRow, m_numCol;$/;"	m	struct:Bounds
+m_startRow	include/peak.h	/^    int m_startRow, m_startCol, m_numRow, m_numCol;$/;"	m	class:PeakProblem
+m_startRow	include/peak.h	/^    int m_startRow, m_startCol, m_numRow, m_numCol;$/;"	m	struct:Bounds
+m_string	include/myString.h	/^    char* m_string;$/;"	m	class:MyString
+main	src/generate.cpp	/^int main(int argc, char *argv[])$/;"	f
 main	test.cpp	/^int main()$/;"	f
-openTracer	trace.cpp	/^int TraceRecord::openTracer(const char &filename[], int fileMode)$/;"	f	class:TraceRecord
-operator =	myString.cpp	/^void MyString::operator = (const MyString &str)$/;"	f	class:MyString
-operator ==	peak.h	/^    bool operator==(const Location &location)$/;"	f	struct:Location
-printArray	error_1.cpp	/^void printArray(int a, int b, int (* const (&arr ))[3] )$/;"	f
-readFromFile	generate.cpp	/^int RandomProblem::readFromFile(const char* filename)$/;"	f	class:RandomProblem
-setBestSeen	trace.cpp	/^void TraceRecord::setBestSeen(const Location &bestSeen)$/;"	f	class:TraceRecord
-setProblemDimensions	trace.cpp	/^void TraceRecord::setProblemDimensions(PeakProblem &subprolem)$/;"	f	class:TraceRecord
-sub	test.cpp	/^int sub(int a, int b, int c) $/;"	f
-sum	test.cpp	/^int  sum(int a, int b, int c)$/;"	f
-utils	utils.cpp	/^namespace utils$/;"	n	file:
-writeToFile	generate.cpp	/^int RandomProblem::writeToFile(const char* filename)$/;"	f	class:RandomProblem
-~MyString	myString.cpp	/^MyString::~MyString()$/;"	f	class:MyString
-~TraceRecord	trace.cpp	/^TraceRecord::~TraceRecord()$/;"	f	class:TraceRecord
+main	test/error_1.cpp	/^int main()$/;"	f
+main	test/main.cpp	/^int main()$/;"	f
+openTracer	src/trace.cpp	/^int TraceRecord::openTracer(const char &filename[], int fileMode)$/;"	f	class:TraceRecord
+operator =	src/myString.cpp	/^void MyString::operator = (const MyString &str)$/;"	f	class:MyString
+operator ==	include/peak.h	/^    bool operator==(const Location &location)$/;"	f	struct:Location
+printArray	test/error_1.cpp	/^void printArray(int a, int b, int (* const (&arr ))[3] )$/;"	f
+readFromFile	src/randomProblem.cpp	/^int RandomProblem::readFromFile(const char* filename)$/;"	f	class:RandomProblem
+setBestSeen	src/trace.cpp	/^void TraceRecord::setBestSeen(const Location &bestSeen)$/;"	f	class:TraceRecord
+setProblemDimensions	src/trace.cpp	/^void TraceRecord::setProblemDimensions(PeakProblem &subproblem)$/;"	f	class:TraceRecord
+sub	test.cpp	/^int sub(const int &a, const int &b)$/;"	f
+sum	test.cpp	/^int  sum(const int &a, const int &b)$/;"	f
+utils	include/utils.h	/^namespace utils$/;"	n
+writeToFile	src/randomProblem.cpp	/^int RandomProblem::writeToFile(const char* filename)$/;"	f	class:RandomProblem
+~MyString	src/myString.cpp	/^MyString::~MyString()$/;"	f	class:MyString
+~RandomProblem	src/randomProblem.cpp	/^RandomProblem::~RandomProblem()$/;"	f	class:RandomProblem
+~TraceRecord	src/trace.cpp	/^TraceRecord::~TraceRecord()$/;"	f	class:TraceRecord
