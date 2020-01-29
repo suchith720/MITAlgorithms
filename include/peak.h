@@ -1,60 +1,14 @@
+#ifndef __PEAK_PROBLEM__
+#define __PEAK_PROBLEM__
+
 #include <iostream>
-//#include "trace.h"
 
-//Add trace at the end
-//Make thing const as far as possible
+#include "trace.h"
+#include "global.h"
 
-struct Bounds
-{
-    int m_startRow, m_startCol, m_numRow, m_numCol;
+using namespace std;
 
-    Bounds(int startRow, int startCol, int numRow, int numCol): m_startRow(startRow), m_startCol(startCol), m_numRow(numRow), m_numCol(numCol)
-    {}
-
-    Bounds() {}
-
-};
-
-//new feature tried
-struct Location
-{
-    int m_row,m_col;
-
-    Location(int r, int c): m_row(r), m_col(c) {}
-    Location() 
-    {
-        m_row = m_col = -1;
-    }
-
-    bool operator==(const Location &location)
-    {
-        if( this->m_row == location.m_row && this->m_col == location.m_col )
-            return true;
-        
-        return false;
-    }
-        
-};
-
-/*
-struct CrossProduct
-{
-    Bounds bounds; 
-
-    Location location;
-
-    CrossProduct(const Bounds &bounds,const Location &location): bounds(bounds), location(location)
-    {}
-
-    CrossProduct()
-    {
-        location.m_row = location.m_col = -1;
-    }
-
-};
-*/
-
-    
+class TraceRecord;
 
 //Having a destructor here will create a problem of dangling pointer.
 //Its better if its main's responsibity to delete the array from the heap
@@ -75,9 +29,9 @@ class PeakProblem
     //reason for const is, temporary object cannot have non-const reference.
     int get(const Location &location);
 
-    Location getBetterNeighbor(const Location &location, const TraceRecord &trace);
+    Location getBetterNeighbor(const Location &location, const TraceRecord &trace = TraceRecord() );
 
-    Location getMaximum(const Bounds &locations, const TraceRecord &trace);
+    Location getMaximum(const Location &locations, const TraceRecord &trace = TraceRecord());
 
     bool isPeak(const Location &location);
 
@@ -91,4 +45,5 @@ class PeakProblem
     Bounds getBounds();
 };
 
+#endif  // end for __PEAK_PROBLEM__
 

@@ -1,6 +1,4 @@
-#include <iostream>
-
-#include "trace.h"
+#include "peak.h"
 
 PeakProblem::PeakProblem():m_array(NULL)
 {
@@ -37,7 +35,7 @@ int PeakProblem::get(const Location &location)
     return this->m_array[this->m_startRow + r][ this->m_startCol + c];
 }
 
-Location PeakProblem::getBetterNeighbor(const Location &location, const TraceRecord &trace = TraceRecord() )
+Location PeakProblem::getBetterNeighbor(const Location &location, const TraceRecord &trace )
 {
     int r = location.m_row, c = location.m_col;
 
@@ -59,7 +57,7 @@ Location PeakProblem::getBetterNeighbor(const Location &location, const TraceRec
 
 }
 
-Location PeakProblem::getMaximum(const Location &locations, const TraceRecord &trace = TraceRecord() )
+Location PeakProblem::getMaximum(const Location &locations, const TraceRecord &trace )
 {
     Location bestLoc;
 

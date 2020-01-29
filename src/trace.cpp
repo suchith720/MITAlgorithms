@@ -6,9 +6,9 @@ TraceRecord::TraceRecord()
 }
 
 
-TraceRecord::TraceRecord(const char &filename[], int fileMode = ios::trunc)
+TraceRecord::TraceRecord(const char * filename, ios_base::openmode fileMode)
 {
-    this->m_logFile.open(filename, fileMode);
+    this->m_logFile.open(filename, fileMode | ios::out);
     m_isTraceRecordOpen = true; 
 
     if(! m_logFile.is_open() )
@@ -30,7 +30,7 @@ TraceRecord::~TraceRecord()
 
 }
 
-int TraceRecord::openTracer(const char &filename[], int fileMode)
+int TraceRecord::openTracer(const char *filename, ios_base::openmode fileMode)
 {
     if( m_isTraceRecordOpen )
         return 0;
@@ -59,7 +59,7 @@ int TraceRecord::closeTracer()
 
 
 
-void TraceRecord::getMaximum(const Bounds &bounds, const Location &location, const Location &maximum)
+void TraceRecord::getMaximum(const Bounds &bounds, const Location &location, const Location &maximum) 
 {
     if( ! m_isTraceRecordOpen )
         return;
@@ -75,7 +75,7 @@ void TraceRecord::getMaximum(const Bounds &bounds, const Location &location, con
 }
 
 
-void TraceRecord::getBetterNeighbor(const Location &neighbor, const Location &better)
+void TraceRecord::getBetterNeighbor(const Location &neighbor, const Location &better) 
 {
     if( ! m_isTraceRecordOpen )
         return;
@@ -126,7 +126,7 @@ void TraceRecord::foundPeak(const Location &peak)
 }
 
 //Helper function
-bool TraceRecord::getTraceRecordStatus()
+bool TraceRecord::getTraceRecordStatus() const
 {
     return m_isTraceRecordOpen;
 }
