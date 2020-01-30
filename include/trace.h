@@ -4,7 +4,6 @@
 #include <iostream>
 #include <fstream>
 
-#include "peak.h"
 #include  "global.h"
 
 using namespace std;
@@ -13,12 +12,15 @@ class PeakProblem;
 
 class TraceRecord
 {
-    ofstream m_logFile;
     bool m_isTraceRecordOpen;
 
     public:
+        
+    ofstream m_logFile;
 
         TraceRecord();
+
+        TraceRecord(const TraceRecord &trace);
 
         TraceRecord(const char * filename,  ios_base::openmode fileMode = ios::trunc);
 
@@ -42,6 +44,8 @@ class TraceRecord
         bool getTraceRecordStatus() const;
 
 };
+
+#include "peak.h"
 
 #endif  //end for __TRACE_RECORD__
 

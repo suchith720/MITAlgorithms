@@ -5,6 +5,12 @@ TraceRecord::TraceRecord()
     m_isTraceRecordOpen = false;
 }
 
+TraceRecord::TraceRecord(const TraceRecord &trace)
+{
+    m_logFile.copyfmt( trace.m_logFile );
+    m_logFile.clear( trace.m_logFile.rdstate() );
+    m_logFile.basic_ios<char>::rdbuf( trace.m_logFile.rdbuf() );
+}
 
 TraceRecord::TraceRecord(const char * filename, ios_base::openmode fileMode)
 {

@@ -11,7 +11,7 @@ MAKDIR = make
 CPPFLAGS = -I./include/
 CPPLIBS = -I./lib/
 
-CPP = algorithms.cpp generate.cpp myString.cpp peak.cpp \
+CPP = algorithms.cpp myString.cpp peak.cpp \
       randomProblem.cpp trace.cpp utils.cpp
 
 TEST = main.cpp generate.cpp

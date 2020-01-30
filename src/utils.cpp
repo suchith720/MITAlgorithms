@@ -7,7 +7,7 @@ void utils::getOpenFilename(MyString &filename)
         cout << "(default : " << filename.arrayPtr() << ")";
     cout << " : " << endl;
     
-    MyString enterFilename;
+    MyString enteredFilename;
     enteredFilename.input();
 
     if( strcmp(enteredFilename.arrayPtr(),"") && !strcmp(filename.arrayPtr(), "") )
@@ -21,7 +21,7 @@ void utils::getSaveFilename(MyString &filename)
         cout << "(default : " << filename.arrayPtr() << ")";
     cout << " : " << endl;
     
-    MyString enterFilename;
+    MyString enteredFilename;
     enteredFilename.input();
 
     if(  strcmp(enteredFilename.arrayPtr(),"") )

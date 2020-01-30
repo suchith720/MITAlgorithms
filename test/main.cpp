@@ -3,7 +3,7 @@
 #include "peak.h"
 #include "algorithms.h"
 #include "utils.h"
-#include "track.h"
+#include "trace.h"
 #include "randomProblem.h"
 #include "myString.h"
 
@@ -12,32 +12,32 @@
 
 using namespace std;
 
-typedef Location (*algorithmList) (const PeakProblem&, const TraceRecord&, const Location&, bool);
+typedef Location (*algorithmList) (PeakProblem&, TraceRecord, const Location&, bool);
 
-void loadProblem(RandomProblem &load, const char *file = "problem.txt")
+void loadProblem(RandomProblem &matrix, const char *file = "problem.txt")
 {
-    load.readFromFile( file );
+    matrix.readFromFile( file );
 }
 
-int main()
+int main(int argc, char *argv[])
 {
 
-    RandomProblem load;
+    RandomProblem matrix;
 
     MyString filename("problem.txt");
 
     if( argc > 1 )
-        utils::loadProblem(load, argv[1]);
+        loadProblem(matrix, argv[1]);
     else
     {
         utils::getOpenFilename( filename );
-        loadProblem(load, filename.arrayPtr() );
+        loadProblem(matrix, filename.arrayPtr() );
     }
     
     algorithmList function[ NUM_ALGORITHMS ] = { algorithm1, algorithm2, algorithm3, algorithm4 };
     
-    Bounds loadBounds(0, 0, load.getRows(), load.getCols() );
-    PeakProblem problem(load.arrayPtr(), loadBounds);
+    Bounds matrixBounds(0, 0, matrix.getNumRows(), matrix.getNumColumns() );
+    PeakProblem problem(matrix.arrayPtr(), matrixBounds);
 
     TraceRecord trace;
 
@@ -47,7 +47,7 @@ int main()
         utils::getOpenFilename( filename );
         trace.openTracer(filename.arrayPtr() );
 
-        Location peak = function[i](problem, trace);
+        Location peak = function[i](problem, trace, Location(), true);
 
         if( problem.isPeak(peak) )
             cout <<"Algorithm "<<i+1<<" : ( "<< peak.m_row <<" , "<< peak.m_col <<" ) " << "is a peak." << endl;

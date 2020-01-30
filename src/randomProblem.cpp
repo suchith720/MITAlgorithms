@@ -1,6 +1,7 @@
 #include "randomProblem.h"
 
 
+
 RandomProblem::RandomProblem(int rows, int cols, int max)
 {
     m_array = NULL;
@@ -13,12 +14,12 @@ int** RandomProblem::arrayPtr()
     return m_array;
 }
 
-int getRows()
+int RandomProblem::getNumRows()
 {
     return m_rows;
 }
 
-int getCols()
+int RandomProblem::getNumColumns()
 {
     return m_cols;
 }
@@ -41,7 +42,7 @@ void RandomProblem::generate(int rows, int cols, int max)
         m_array[i] = new int [m_cols];
 
         for(int j=0; j < m_cols; j++)
-            inputFile >> m_array[i][j];
+            m_array[i][j] = rand() % m_max ;
     }
 
 }
@@ -68,7 +69,7 @@ int RandomProblem::readFromFile(const char* filename)
         m_array[i] = new int [m_cols];
 
         for(int j=0; j < m_cols; j++)
-            inputFile >> m_array[i][j] = rand()%max;
+            inputFile >> m_array[i][j];
     }
 
 
