@@ -4,7 +4,6 @@
 #include <iostream>
 #include <fstream>
 
-#include "peak.h"
 #include  "global.h"
 
 using namespace std;
@@ -42,6 +41,8 @@ class TraceRecord
         bool getTraceRecordStatus() const;
 
 };
+
+#include "peak.h"
 
 #endif  //end for __TRACE_RECORD__
 
