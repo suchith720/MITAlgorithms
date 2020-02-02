@@ -1,3 +1,6 @@
+#ifndef __RANDOM_PROBLEM__
+#define __RANDOM_PROBLEM__
+
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
@@ -13,15 +16,15 @@ class RandomProblem
 
     public:
     
-    RandomProblem();
+    RandomProblem(int rows=10, int cols=10, int max=1000);
     void generate(int rows=10, int cols=10, int max=1000);
     int readFromFile(const char* filename);
     int writeToFile(const char* filename);
     ~RandomProblem();
 
     int** arrayPtr();
-    int getRows();
-    int getColumns();
+    int getNumRows();
+    int getNumColumns();
 };
 
-
+#endif  // end for __RANDOM_PROBLEM__

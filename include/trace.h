@@ -12,12 +12,15 @@ class PeakProblem;
 
 class TraceRecord
 {
-    ofstream m_logFile;
     bool m_isTraceRecordOpen;
 
     public:
+        
+    ofstream m_logFile;
 
         TraceRecord();
+
+        TraceRecord(const TraceRecord &trace);
 
         TraceRecord(const char * filename,  ios_base::openmode fileMode = ios::trunc);
 

@@ -1,3 +1,6 @@
+#ifndef __UTILS__
+#define __UTILS__
+
 #include <iostream>
 #include <fstream>
 
@@ -12,3 +15,5 @@ namespace utils
     
     void getSaveFilename(MyString &filename);
 }
+
+#endif  // end for __UTILS__

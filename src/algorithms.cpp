@@ -1,6 +1,6 @@
 #include "algorithms.h"
 
-Location algorithm1(const PeakProblem &problem, const TraceRecord &trace, const Location &location, bool rowSplit)
+Location algorithm1(PeakProblem &problem, TraceRecord trace, Location &location, bool rowSplit)
 {
     Bounds problemBounds = problem.getBounds();
 
@@ -9,9 +9,9 @@ Location algorithm1(const PeakProblem &problem, const TraceRecord &trace, const 
 
     int mid = problemBounds.m_numCol / 2;
     
-    int subStartR = 0, subNumR = problem.m_numRow;
+    int subStartR = 0, subNumR = problemBounds.m_numRow;
     int subStartC1 = 0, subNumC1 = mid;
-    int subStartC2 = mid + 1, subNumC2 = problem.m_numCol - (mid + 1);
+    int subStartC2 = mid + 1, subNumC2 = problemBounds.m_numCol - (mid + 1);
 
     Bounds subproblems[2];
 
@@ -43,7 +43,7 @@ Location algorithm1(const PeakProblem &problem, const TraceRecord &trace, const 
 
 }
 
-Location algorithm2(const PeakProblem &problem, const TraceRecord &trace, const Location &location, bool rowSplit)
+Location algorithm2(PeakProblem &problem, TraceRecord trace, Location &location, bool rowSplit)
 {
     Bounds problemBounds = problem.getBounds();
 
@@ -64,15 +64,15 @@ Location algorithm2(const PeakProblem &problem, const TraceRecord &trace, const 
 
 }
 
-Location algorithm3(const PeakProblem &problem, const TraceRecord &trace,  const Location &bestseen, bool rowSplit)
+Location algorithm3(PeakProblem &problem, TraceRecord trace, Location bestSeen, bool rowSplit)
 {
     Bounds problemBounds = problem.getBounds();
 
     if( problemBounds.m_numRow <=0 || problemBounds.m_numCol <=0 )
         return Location();
 
-    int midRow = problem.m_numRow / 2;
-    int midCol = problem.m_numCol / 2;
+    int midRow = problemBounds.m_numRow / 2;
+    int midCol = problemBounds.m_numCol / 2;
 
     Bounds subproblems[4];
     
@@ -117,7 +117,7 @@ Location algorithm3(const PeakProblem &problem, const TraceRecord &trace,  const
     return problem.getLocationInSelf(sub, result);
 }
 
-Location algorithm4(const PeakProblem &problem, const TraceRecord &trace, const Location &bestSeen, bool rowSplit)
+Location algorithm4(PeakProblem &problem, TraceRecord trace, Location &bestSeen, bool rowSplit)
 {
     Bounds problemBounds = problem.getBounds();
 
@@ -133,10 +133,10 @@ Location algorithm4(const PeakProblem &problem, const TraceRecord &trace, const 
 
         int subStartR1 = 0, subNumR1 = mid;
         int subStartR2 = mid + 1, subNumR2 = problemBounds.m_numRow - (mid + 1);
-        int subStartC = 0, subNumC = problems.m_numCol;
+        int subStartC = 0, subNumC = problemBounds.m_numCol;
 
-        subproblem[0] = Bounds(subStartR1, subStartC, subNumR1, subNumC);
-        subproblem[1] = Bounds(subStartR2, subStartC, subNumR2, subNumC);
+        subproblems[0] = Bounds(subStartR1, subStartC, subNumR1, subNumC);
+        subproblems[1] = Bounds(subStartR2, subStartC, subNumR2, subNumC);
 
         divider = Location( mid , -1 );
 
@@ -146,11 +146,11 @@ Location algorithm4(const PeakProblem &problem, const TraceRecord &trace, const 
         int mid = problemBounds.m_numCol / 2;
 
         int subStartR = 0, subNumR = problemBounds.m_numRow;
-        int subStartC1 = 0, subNumR2 = mid;
-        int subStartC1 = mid + 1, subNumCol = problems.m_numCol - (mid + 1);
+        int subStartC1 = 0, subNumC1 = mid;
+        int subStartC2 = mid + 1, subNumC2 = problemBounds.m_numCol - (mid + 1);
         
-        subproblem[0] = Bounds(subStartR, subStartC1, subNumR, subNumC1);
-        subproblem[1] = Bounds(subStartR, subStartC2, subNumR, subNumC2);
+        subproblems[0] = Bounds(subStartR, subStartC1, subNumR, subNumC1);
+        subproblems[1] = Bounds(subStartR, subStartC2, subNumR, subNumC2);
 
         divider = Location( -1 , mid );
     }
@@ -167,7 +167,7 @@ Location algorithm4(const PeakProblem &problem, const TraceRecord &trace, const 
             trace.setBestSeen(bestSeen);
     }
 
-    if( neighbor == besLoc || problem.get(bestLoc) >= problem.get(bestSeen) )
+    if( neighbor == bestLoc || problem.get(bestLoc) >= problem.get(bestSeen) )
     {
         if(trace.getTraceRecordStatus() )
             trace.foundPeak(bestLoc);

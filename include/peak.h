@@ -29,9 +29,9 @@ class PeakProblem
     //reason for const is, temporary object cannot have non-const reference.
     int get(const Location &location);
 
-    Location getBetterNeighbor(const Location &location, const TraceRecord &trace = TraceRecord() );
+    Location getBetterNeighbor(const Location &location, TraceRecord trace = TraceRecord() );
 
-    Location getMaximum(const Location &locations, const TraceRecord &trace = TraceRecord());
+    Location getMaximum(const Location &locations, TraceRecord trace = TraceRecord() );
 
     bool isPeak(const Location &location);
 

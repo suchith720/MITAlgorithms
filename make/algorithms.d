@@ -1,2 +1,2 @@
-obj/algorithms.o make/algorithms.d : src/algorithms.cpp include/algorithms.h include/peak.h \
- include/trace.h
+obj/algorithms.o make/algorithms.d : src/algorithms.cpp include/algorithms.h include/trace.h \
+ include/global.h include/peak.h
