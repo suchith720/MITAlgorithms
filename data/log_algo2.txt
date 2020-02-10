@@ -1,0 +1,2 @@
+type foundPeak
+coord -1 -1

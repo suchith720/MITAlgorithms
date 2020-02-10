@@ -10,6 +10,8 @@ TraceRecord::TraceRecord(const TraceRecord &trace)
     m_logFile.copyfmt( trace.m_logFile );
     m_logFile.clear( trace.m_logFile.rdstate() );
     m_logFile.basic_ios<char>::rdbuf( trace.m_logFile.rdbuf() );
+
+    m_isTraceRecordOpen = true;
 }
 
 TraceRecord::TraceRecord(const char * filename, ios_base::openmode fileMode)
@@ -32,14 +34,15 @@ TraceRecord::~TraceRecord()
         m_logFile.close();
     }
 
-    cout << "Closing track file." << endl;
-
 }
 
 int TraceRecord::openTracer(const char *filename, ios_base::openmode fileMode)
 {
     if( m_isTraceRecordOpen )
-        return 0;
+    {
+        this->m_logFile.flush();
+        this->m_logFile.close();
+    }
     
     this->m_logFile.open(filename, fileMode);
     m_isTraceRecordOpen = true; 
@@ -60,6 +63,9 @@ int TraceRecord::closeTracer()
         return 0;
 
     m_logFile.close();
+
+    m_isTraceRecordOpen = false;
+
     return 1;
 }
 

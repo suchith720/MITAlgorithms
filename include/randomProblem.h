@@ -16,7 +16,7 @@ class RandomProblem
 
     public:
     
-    RandomProblem(int rows=10, int cols=10, int max=1000);
+    RandomProblem();
     void generate(int rows=10, int cols=10, int max=1000);
     int readFromFile(const char* filename);
     int writeToFile(const char* filename);

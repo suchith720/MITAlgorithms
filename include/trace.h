@@ -24,7 +24,7 @@ class TraceRecord
 
         TraceRecord(const char * filename,  ios_base::openmode fileMode = ios::trunc);
 
-        int openTracer(const char *filename, ios_base::openmode fileMode = ios::trunc);
+        int openTracer(const char *filename, ios_base::openmode fileMode = ios::out);
 
         int closeTracer();
 

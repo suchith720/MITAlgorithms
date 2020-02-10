@@ -1,0 +1,5 @@
+type subproblem
+startRow 0
+numRows 10
+startCol 6
+numCols 4

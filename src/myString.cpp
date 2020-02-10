@@ -31,7 +31,7 @@ MyString::MyString(const char* str)
         while( str[m_length] != '\0' )
             m_length++;
 
-        m_string = new char [m_length];
+        m_string = new char [m_length + 1];
 
         strcpy(m_string, str);
 
@@ -73,7 +73,9 @@ void MyString::input()
 
     char* strUpdate;
 
-    while( cin.get(ch) && ch != '\n' )
+    while( cin.get(ch) && ch == '\n' );
+
+    while( ch != '\n' )
     {
         m_string[count] = ch;
         count ++;
@@ -89,6 +91,8 @@ void MyString::input()
 
             m_string = strUpdate;
         }
+
+        cin.get(ch);
     }
     
     m_string[count] = '\0';

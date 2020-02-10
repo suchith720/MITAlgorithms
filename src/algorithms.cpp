@@ -1,6 +1,6 @@
 #include "algorithms.h"
 
-Location algorithm1(PeakProblem &problem, TraceRecord trace, Location &location, bool rowSplit)
+Location algorithm1(PeakProblem &problem, TraceRecord trace, Location location, bool rowSplit)
 {
     Bounds problemBounds = problem.getBounds();
 
@@ -43,7 +43,7 @@ Location algorithm1(PeakProblem &problem, TraceRecord trace, Location &location,
 
 }
 
-Location algorithm2(PeakProblem &problem, TraceRecord trace, Location &location, bool rowSplit)
+Location algorithm2(PeakProblem &problem, TraceRecord trace, Location location, bool rowSplit)
 {
     Bounds problemBounds = problem.getBounds();
 
@@ -117,7 +117,7 @@ Location algorithm3(PeakProblem &problem, TraceRecord trace, Location bestSeen, 
     return problem.getLocationInSelf(sub, result);
 }
 
-Location algorithm4(PeakProblem &problem, TraceRecord trace, Location &bestSeen, bool rowSplit)
+Location algorithm4(PeakProblem &problem, TraceRecord trace, Location bestSeen, bool rowSplit)
 {
     Bounds problemBounds = problem.getBounds();
 

@@ -11,7 +11,7 @@ MAKDIR = make
 CPPFLAGS = -I./include/
 CPPLIBS = -I./lib/
 
-CPP = algorithms.cpp myString.cpp peak.cpp \
+CPP = algorithms.cpp myString.cpp peak.cpp global.cpp \
       randomProblem.cpp trace.cpp utils.cpp
 
 TEST = main.cpp generate.cpp
@@ -45,7 +45,7 @@ $(OBJDIR)/%.o : $(SRCDIR)/%.cpp
 all : $(BIN)
 
 $(BINDIR)/main : $(TESDIR)/main.d $(TESDIR)/main.cpp $(OBJ)
-	$(CC) $(TESDIR)/main.cpp $(OBJ) $(CPPFLAGS) $(CPPLIBS) -o $@
+	$(CC) $(TESDIR)/main.cpp $(CPPFLAGS) $(OBJ) $(CPPLIBS) -o $@
 
 $(BINDIR)/generate : $(TESDIR)/generate.cpp $(OBJDIR)/myString.o $(OBJDIR)/utils.o $(OBJDIR)/randomProblem.o
 	$(CC) $^ $(CPPFLAGS) $(CPPLIBS) -o $@
@@ -65,7 +65,7 @@ $(BINDIR) :
 .PHONY : clean
 
 clean : 
-	-rm -f $(OBJDIR)/* $(BINDIR)/*
+	-rm -f $(OBJDIR)/* $(BINDIR)/* $(MAKDIR)/* $(TESDIR)/*.d*
 
 
 

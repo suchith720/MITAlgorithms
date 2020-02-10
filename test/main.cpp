@@ -12,7 +12,7 @@
 
 using namespace std;
 
-typedef Location (*algorithmList) (PeakProblem&, TraceRecord, const Location&, bool);
+typedef Location (*algorithmList) (PeakProblem&, TraceRecord, Location, bool);
 
 void loadProblem(RandomProblem &matrix, const char *file = "problem.txt")
 {
@@ -24,7 +24,9 @@ int main(int argc, char *argv[])
 
     RandomProblem matrix;
 
-    MyString filename("problem.txt");
+    MyString filename("data/problem.txt");
+    
+    cout << endl << "Loading Problem " << endl << endl;
 
     if( argc > 1 )
         loadProblem(matrix, argv[1]);
@@ -41,15 +43,20 @@ int main(int argc, char *argv[])
 
     TraceRecord trace;
 
+    cout << endl << "Starting algorithm" << endl << endl;
+
     for( int i=0; i < NUM_ALGORITHMS ; i++ )
     {
-        filename = "log.txt";
+        cout << endl << "Algorithm " << i+1 << endl;
+
+        filename = "data/log.txt";
         utils::getOpenFilename( filename );
+
         trace.openTracer(filename.arrayPtr() );
 
         Location peak = function[i](problem, trace, Location(), true);
 
-        if( problem.isPeak(peak) )
+        if( problem.isPeak(peak) && peak.m_row > -1 && peak.m_col > -1 )
             cout <<"Algorithm "<<i+1<<" : ( "<< peak.m_row <<" , "<< peak.m_col <<" ) " << "is a peak." << endl;
         else
             cout <<"Algorithm "<<i+1<<" : ( "<< peak.m_row <<" , "<< peak.m_col <<" ) " << "is NOT a peak." << endl;

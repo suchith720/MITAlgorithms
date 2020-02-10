@@ -2,7 +2,7 @@
 
 
 
-RandomProblem::RandomProblem(int rows, int cols, int max)
+RandomProblem::RandomProblem()
 {
     m_array = NULL;
     m_rows = m_cols = 0;
@@ -26,8 +26,6 @@ int RandomProblem::getNumColumns()
 
 void RandomProblem::generate(int rows, int cols, int max)
 {
-    if( m_array != NULL)
-        return;
 
     m_rows = rows;
     m_cols = cols;
@@ -42,21 +40,18 @@ void RandomProblem::generate(int rows, int cols, int max)
         m_array[i] = new int [m_cols];
 
         for(int j=0; j < m_cols; j++)
-            m_array[i][j] = rand() % m_max ;
+            m_array[i][j] = rand() % m_max + 1;
     }
 
 }
 
 int RandomProblem::readFromFile(const char* filename)
 {
-    if( m_array != NULL)
-        return 0;
-
     ifstream inputFile(filename);
 
     if( ! inputFile.is_open() )
     {
-        cerr << "Unable to read the problem file : " << __PRETTY_FUNCTION__ << endl;
+        cerr << "Unable to read the problem file : "<< filename << " (" << __PRETTY_FUNCTION__ << ")" << endl;
         return 0;
     }
 
@@ -71,6 +66,8 @@ int RandomProblem::readFromFile(const char* filename)
         for(int j=0; j < m_cols; j++)
             inputFile >> m_array[i][j];
     }
+
+    inputFile.close();
 
 
 }
@@ -99,18 +96,25 @@ int RandomProblem::writeToFile(const char* filename)
         outputFile << endl;
     }
 
+    outputFile.close();
+
     return 1;
 }
 
 
 RandomProblem::~RandomProblem()
 {
-    for(int i=0; i< m_rows; i++)
+    if( m_array != NULL)
     {
-        delete [] m_array[i];
+        for(int i=0; i< m_rows; i++)
+        {
+            delete [] m_array[i];
+        }
+
+        delete [] m_array;
+
     }
 
-    delete [] m_array;
 }
 
 
